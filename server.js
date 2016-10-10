@@ -51,7 +51,7 @@ http.createServer(function(req, res){
 	
 	// Does the image file exist?
 	if (!fileExists(reqFile)) {
-		return404(res,'image file was not found');
+		return404(res,'image file was not found: ' + reqFile);
 		return;
 	}
 	
