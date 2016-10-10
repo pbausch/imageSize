@@ -2,7 +2,7 @@
 
 A node.js script that resizes images on-the-fly.
 
-Specify a ROOT_DIR environment varialbe to tell this script where to find the images. Then include a
+Specify a ROOT_DIR environment variable to tell this script where to find the images. Then include a
 
     /[width]x[height]/ 
   
