@@ -18,6 +18,8 @@ http.createServer(function(req, res){
 	var request = url.parse(req.url, true);
 	var action = request.pathname;
 	
+	console.log('action = ' + action);
+	
 	// Does this request contain an image action?
 	var regex = /\/(\d{1,3})x(\d{1,3})\//g;
 	result = regex.exec(action);
@@ -32,6 +34,8 @@ http.createServer(function(req, res){
 	// Reset the request directory
 	action = action.replace(actionDir,"/").replace("/img","");
 	reqFile = process.env.ROOT_DIR + action;
+	
+	console.log('file = ' + reqFile);
 		
 	// Is this an image request?
 	if (!hasAllowedExtension(reqFile, ['.jpg', '.JPG'])) {
