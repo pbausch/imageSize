@@ -14,6 +14,16 @@ function hasAllowedExtension(file, exts) {
     return (new RegExp('(' + exts.join('|').replace(/\./g, '\\.') + ')$')).test(file);
 }
 
+function fileExists(filePath) {
+    try {
+        return fs.statSync(filePath).isFile();
+    }
+    catch (err)
+    {
+        return false;
+    }
+}
+
 http.createServer(function(req, res){
 	var request = url.parse(req.url, true);
 	var action = request.pathname;
@@ -44,10 +54,7 @@ http.createServer(function(req, res){
 	}
 	
 	// Does the image file exist?
-	try {
-	    fs.accessSync(reqFile, fs.F_OK);
-	} 
-	catch (e) {
+	if (!fileExists(reqFile)) {
 		return404(res,'image file was not found');
 		return;
 	}
