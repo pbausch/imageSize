@@ -61,7 +61,10 @@ http.createServer(function(req, res){
 	  .sharpen()
 	  .toBuffer()
 	  .then(function(outputBuffer) {
-			res.writeHead(200, {'Content-Type': 'image/jpg' });
+			res.setHeader("Cache-Control", "public, max-age=2592000");
+		    res.setHeader("Expires", new Date(Date.now() + 2592000000).toUTCString());
+			res.setHeader("Content-Type", "image/jpg");
+			res.status(200);
 	 		res.end(outputBuffer, 'binary');	    
 	  });
 }).listen(8080);
