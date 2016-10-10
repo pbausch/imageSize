@@ -3,8 +3,8 @@ http = require('http');
 url = require('url');
 sharp = require('sharp');
 
-function return404(r) {
-	console.log('not found');
+function return404(r,e) {
+	console.log(e);
     r.writeHead(404, {"Content-Type": "text/plain"});
     r.end("404 Not found");
 	return;
@@ -24,7 +24,7 @@ http.createServer(function(req, res){
 	var regex = /\/(\d{1,3})x(\d{1,3})\//g;
 	result = regex.exec(action);
 	if (!result) {
-		return404(res);
+		return404(res,'no dimensions found in request');
 		return;
 	}
 	var actionDir = result[0];
@@ -32,14 +32,14 @@ http.createServer(function(req, res){
 	var heightValue = parseInt(result[2]);
 	
 	// Reset the request directory
-	action = action.replace(actionDir,"/").replace("/img","");
+	action = action.replace(actionDir,"/");
 	reqFile = process.env.ROOT_DIR + action;
 	
 	console.log('file = ' + reqFile);
 		
 	// Is this an image request?
 	if (!hasAllowedExtension(reqFile, ['.jpg', '.JPG'])) {
-		return404(res);
+		return404(res,'request did not have allowed extension');
 		return;
 	}
 	
@@ -48,7 +48,7 @@ http.createServer(function(req, res){
 	    fs.accessSync(reqFile, fs.F_OK);
 	} 
 	catch (e) {
-		return404(res);
+		return404(res,'image file was not found');
 		return;
 	}
 	
