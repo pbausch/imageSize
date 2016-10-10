@@ -1,0 +1,10 @@
+{
+  "name"         : "imageSize",
+  "version"      : "0.0.1",
+  "description"  : "resize images on the fly.",
+  "main"         : "server.js",
+  "author"       : "Paul Bausch",
+  "dependencies" : {
+    "sharp"    : "latest"
+  }
+}
