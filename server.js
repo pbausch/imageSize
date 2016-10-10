@@ -1,7 +1,8 @@
-fs = require('fs');
-http = require('http');
-url = require('url');
-sharp = require('sharp');
+var fs = require('fs');
+var http = require('http');
+var url = require('url');
+var sharp = require('sharp');
+var etag = require('etag');
 
 function return404(r,e) {
 	console.log(e);
@@ -64,6 +65,7 @@ http.createServer(function(req, res){
 			res.statusCode = 200;
 			res.setHeader("Cache-Control", "public, max-age=2592000");
 		    res.setHeader("Expires", new Date(Date.now() + 2592000000).toUTCString());
+			res.setHeader('ETag', etag(outputBuffer))
 			res.setHeader("Content-Type", "image/jpg");
 	 		res.end(outputBuffer, 'binary');	    
 	  });
