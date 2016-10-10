@@ -30,7 +30,7 @@ http.createServer(function(req, res){
 	var heightValue = parseInt(result[2]);
 	
 	// Reset the request directory
-	action = action.replace(actionDir,"/");
+	action = action.replace(actionDir,"/").replace("/img","");
 	reqFile = process.env.ROOT_DIR + action;
 		
 	// Is this an image request?
