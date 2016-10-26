@@ -63,8 +63,8 @@ http.createServer(function(req, res){
 	  .toBuffer()
 	  .then(function(outputBuffer) {
 			res.statusCode = 200;
-			res.setHeader("Cache-Control", "public, max-age=2592000");
-		    res.setHeader("Expires", new Date(Date.now() + 2592000000).toUTCString());
+			res.setHeader("Cache-Control", "public, max-age=31556952000");
+		    res.setHeader("Expires", new Date(Date.now() + 31556952000).toUTCString());
 			res.setHeader('ETag', etag(outputBuffer))
 			res.setHeader("Content-Type", "image/jpg");
 	 		res.end(outputBuffer, 'binary');	    
