@@ -44,8 +44,11 @@ http.createServer(function(req, res){
 	action = action.replace(actionDir,"/");
 	reqFile = process.env.ROOT_DIR + action;
 	
+	// Get the extension
+	var extension = reqFile.split('.').pop();
+	
 	// Is this an image request?
-	if (!hasAllowedExtension(reqFile, ['.jpg', '.JPG'])) {
+	if (!hasAllowedExtension(reqFile, ['.png', '.jpg', '.JPG'])) {
 		return404(res,'request did not have allowed extension');
 		return;
 	}
@@ -66,7 +69,7 @@ http.createServer(function(req, res){
 			res.setHeader("Cache-Control", "public, max-age=31556952000");
 		    res.setHeader("Expires", new Date(Date.now() + 31556952000).toUTCString());
 			res.setHeader('ETag', etag(outputBuffer))
-			res.setHeader("Content-Type", "image/jpg");
+			res.setHeader("Content-Type", "image/" + extension);
 	 		res.end(outputBuffer, 'binary');	    
 	  });
 }).listen(8080);
