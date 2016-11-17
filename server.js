@@ -3,6 +3,7 @@ var http = require('http');
 var url = require('url');
 var sharp = require('sharp');
 var etag = require('etag');
+var util = require('util');
 
 function return404(r,e) {
 	console.log(e);
