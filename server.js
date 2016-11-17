@@ -59,6 +59,10 @@ http.createServer(function(req, res){
 		return;
 	}
 	
+	// Get the Last Modified time
+	var stats = fs.statSync(reqFile);
+	var mtime = new Date(util.inspect(stats.mtime));
+	
 	// Resize the image according to the action
 	sharp(process.env.ROOT_DIR + action)
 	  .resize(widthValue,heightValue)
@@ -68,7 +72,7 @@ http.createServer(function(req, res){
 			res.statusCode = 200;
 			res.setHeader("Cache-Control", "public, max-age=31556952000");
 		    res.setHeader("Expires", new Date(Date.now() + 31556952000).toUTCString());
-			res.setHeader('ETag', etag(outputBuffer))
+			res.setHeader("Last-Modified", mtime.toUTCString());
 			res.setHeader("Content-Type", "image/" + extension);
 	 		res.end(outputBuffer, 'binary');	    
 	  });
